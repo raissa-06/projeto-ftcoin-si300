@@ -5,43 +5,20 @@ import java.time.LocalDate;
  * Representa uma movimentação (compra ou venda) em uma carteira de moeda virtual.
  */
 public class Movimentacao {
-
-    public enum TipoOperacao {
-        COMPRA('C'), VENDA('V');
-
-        private final char codigo;
-
-        TipoOperacao(char codigo) {
-            this.codigo = codigo;
-        }
-
-        public char getCodigo() {
-            return codigo;
-        }
-
-        public static TipoOperacao fromCodigo(char codigo) {
-            for (TipoOperacao tipo : values()) {
-                if (tipo.codigo == codigo) return tipo;
-            }
-            throw new IllegalArgumentException("Tipo de operação inválido: " + codigo);
-        }
-    }
-
     private int idMovimento;
     private int idCarteira;
     private LocalDate dataOperacao;
-    private TipoOperacao tipoOperacao;
+    private TipoMovimentacao tipoMovimentacao;
     private BigDecimal quantidade;
     private BigDecimal cotacaoNaData; // cotação do oráculo na data da operação
 
     public Movimentacao() {}
 
-    public Movimentacao(int idMovimento, int idCarteira, LocalDate dataOperacao,
-                        TipoOperacao tipoOperacao, BigDecimal quantidade, BigDecimal cotacaoNaData) {
+    public Movimentacao(int idMovimento, int idCarteira, LocalDate dataOperacao,TipoMovimentacao tipoOperacao, BigDecimal quantidade, BigDecimal cotacaoNaData) {
         this.idMovimento = idMovimento;
         this.idCarteira = idCarteira;
         this.dataOperacao = dataOperacao;
-        this.tipoOperacao = tipoOperacao;
+        this.tipoMovimentacao = tipoOperacao;
         this.quantidade = quantidade;
         this.cotacaoNaData = cotacaoNaData;
     }
@@ -62,8 +39,8 @@ public class Movimentacao {
     public LocalDate getDataOperacao() { return dataOperacao; }
     public void setDataOperacao(LocalDate dataOperacao) { this.dataOperacao = dataOperacao; }
 
-    public TipoOperacao getTipoOperacao() { return tipoOperacao; }
-    public void setTipoOperacao(TipoOperacao tipoOperacao) { this.tipoOperacao = tipoOperacao; }
+    public TipoMovimentacao getTipoMovimentacao() { return tipoMovimentacao; }
+    public void setTipoMovimentacao(TipoMovimentacao tipoOperacao) { this.tipoMovimentacao = tipoOperacao; }
 
     public BigDecimal getQuantidade() { return quantidade; }
     public void setQuantidade(BigDecimal quantidade) { this.quantidade = quantidade; }
@@ -74,6 +51,6 @@ public class Movimentacao {
     @Override
     public String toString() {
         return String.format("Movimentacao{id=%d, carteira=%d, data=%s, tipo=%s, qtd=%s, cotacao=%s}",
-                idMovimento, idCarteira, dataOperacao, tipoOperacao, quantidade, cotacaoNaData);
+                idMovimento, idCarteira, dataOperacao, tipoMovimentacao, quantidade, cotacaoNaData);
     }
 }
