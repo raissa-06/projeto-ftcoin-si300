@@ -1,7 +1,7 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-//Representa a cotação da moeda virtual em uma determinada data (Oráculo).
+//Representa a cotação da moeda virtual em uma determinada data (Oráculo)
 
 public class Cotacao {
     
