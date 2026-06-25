@@ -1,6 +1,10 @@
+package src.view;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
+
+import src.controller.RelatorioController;
+import src.model.Movimentacao;
 
 public class RelatorioView {
     private final RelatorioController controller;

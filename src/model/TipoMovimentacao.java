@@ -1,3 +1,4 @@
+package src.model;
 public enum TipoMovimentacao {
     COMPRA('C'), VENDA('V');
 

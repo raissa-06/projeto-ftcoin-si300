@@ -1,6 +1,10 @@
+package src.dao.mariadb;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import src.dao.CotacaoDAO;
+import src.model.Cotacao;
 
 import java.math.BigDecimal;// adicionado para uso de BigDecimal, sugestão do VScode 
 

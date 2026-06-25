@@ -1,6 +1,10 @@
+package src.dao.memoria;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import src.dao.CotacaoDAO;
+import src.model.Cotacao;
 
 public class CotacaoDAOMemoria implements CotacaoDAO {
     private final List<Cotacao> bancoDeDados = new ArrayList<>();

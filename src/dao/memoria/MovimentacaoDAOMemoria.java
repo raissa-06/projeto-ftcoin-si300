@@ -1,5 +1,9 @@
+package src.dao.memoria;
 import java.util.ArrayList;
 import java.util.List;
+
+import src.dao.MovimentacaoDAO;
+import src.model.Movimentacao;
 
 public class MovimentacaoDAOMemoria implements MovimentacaoDAO {
     private final List<Movimentacao> bancoDeDados = new ArrayList<>();

@@ -1,4 +1,4 @@
-package ftcoin.dao.sql;
+package src.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

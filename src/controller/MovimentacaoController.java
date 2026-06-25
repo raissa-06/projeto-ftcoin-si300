@@ -1,6 +1,13 @@
+package src.controller;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+
+import src.dao.CotacaoDAO;
+import src.dao.MovimentacaoDAO;
+import src.model.Cotacao;
+import src.model.Movimentacao;
+import src.model.TipoMovimentacao;
 
 public class MovimentacaoController {
 

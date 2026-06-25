@@ -1,4 +1,7 @@
+package src.dao;
 import java.util.List;
+
+import src.model.Movimentacao;
 
 public interface MovimentacaoDAO {
     void inserir(Movimentacao movimentacao);
