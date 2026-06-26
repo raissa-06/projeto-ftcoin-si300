@@ -1,15 +1,18 @@
 package src.model;
+import java.math.BigDecimal;
 
 //testando
 public class Carteira{
     private int identificador;
     private String nomeTitular;
     private String corretora;
+    private BigDecimal saldoFinanceiro;
 
-    public Carteira(int identificador, String nomeTitular, String corretora){
+    public Carteira(int identificador, String nomeTitular, String corretora, BigDecimal saldo){
         this.identificador=identificador;
         this.nomeTitular=nomeTitular;
         this.corretora=corretora;
+        this.saldoFinanceiro = saldo;
     }
 
     public int getIdentificador(){
@@ -40,4 +43,13 @@ public class Carteira{
     public String toString() {
         return String.format("ID: %d | Titular: %s | Corretora: %s", identificador, nomeTitular, corretora);
     }
+
+    public BigDecimal getSaldoFinanceiro() {
+        return saldoFinanceiro;
+    }
+
+    public void setSaldoFinanceiro(BigDecimal saldoFinanceiro) {
+        this.saldoFinanceiro = saldoFinanceiro;
+    }
+
 }

@@ -11,13 +11,14 @@ public class CarteiraMariaDAO implements CarteiraDAO {
 
     @Override
     public void inserir(Carteira carteira) {
-        String sql = "INSERT INTO Carteira (identificador, nomeTitular, corretora) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Carteira (identificador, nomeTitular, corretora, saldoFinanceiro) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = DatabaseConnection.getInstancia()
                 .getConexao().prepareStatement(sql)) {
 
             ps.setInt(1, carteira.getIdentificador());
             ps.setString(2, carteira.getNomeTitular());
             ps.setString(3, carteira.getCorretora());
+            ps.setBigDecimal(4, carteira.getSaldoFinanceiro());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao inserir carteira: " + e.getMessage());
@@ -44,13 +45,14 @@ public class CarteiraMariaDAO implements CarteiraDAO {
 
     @Override
     public void atualizar(Carteira carteira) {
-        String sql = "UPDATE Carteira SET nomeTitular = ?, corretora = ? WHERE identificador = ?";
+        String sql = "UPDATE Carteira SET nomeTitular = ?, corretora = ?, saldoFinanceiro = ? WHERE identificador = ?";
         try (PreparedStatement ps = DatabaseConnection.getInstancia()
                 .getConexao().prepareStatement(sql)) {
 
             ps.setString(1, carteira.getNomeTitular());
             ps.setString(2, carteira.getCorretora());
-            ps.setInt(3, carteira.getIdentificador());
+            ps.setBigDecimal(3, carteira.getSaldoFinanceiro());
+            ps.setInt(4, carteira.getIdentificador());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao atualizar carteira: " + e.getMessage());
@@ -91,7 +93,8 @@ public class CarteiraMariaDAO implements CarteiraDAO {
         return new Carteira(
                 rs.getInt("identificador"),
                 rs.getString("nomeTitular"),
-                rs.getString("corretora")
+                rs.getString("corretora"),
+                rs.getBigDecimal("saldoFinanceiro")
         );
     }
 }

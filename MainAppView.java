@@ -12,10 +12,9 @@ import src.controller.RelatorioController;
 import src.dao.CarteiraDAO;
 import src.dao.CotacaoDAO;
 import src.dao.MovimentacaoDAO;
+import src.dao.mariadb.CarteiraMariaDAO;
 import src.dao.mariadb.CotacaoMariaDAO;
-import src.dao.memoria.CarteiraDAOMemoria;
-import src.dao.memoria.CotacaoDAOMemoria;
-import src.dao.memoria.MovimentacaoDAOMemoria;
+import src.dao.mariadb.MovimentacaoMariaDAO;
 import src.model.Cotacao;
 import src.view.CarteiraView;
 import src.view.MovimentacaoView;
@@ -58,9 +57,9 @@ public class MainAppView {
 
     public void exibirMenuPrincipal() {
         Scanner scanner = new Scanner(System.in);
-        CarteiraDAO carteiraDAO = new CarteiraDAOMemoria();
-        CotacaoDAO cotacaoDAO = new CotacaoDAOMemoria();
-        MovimentacaoDAO movimentacaoDAO = new MovimentacaoDAOMemoria();
+        CarteiraDAO carteiraDAO = new CarteiraMariaDAO();
+        CotacaoDAO cotacaoDAO = new CotacaoMariaDAO();
+         MovimentacaoDAO movimentacaoDAO = new MovimentacaoMariaDAO();
         int opcao = -1;
 
         do {
@@ -99,7 +98,7 @@ public class MainAppView {
                     int id = scanner.nextInt();
                     scanner.nextLine(); // Limpa o buffer
 
-                    MovimentacaoController movimentacaoController = new MovimentacaoController(movimentacaoDAO, cotacaoDAO); 
+                    MovimentacaoController movimentacaoController =  new MovimentacaoController(movimentacaoDAO,cotacaoDAO,carteiraDAO);
                     MovimentacaoView movimentacao = new MovimentacaoView(movimentacaoController, scanner);
                     movimentacao.exibirMenu(id);
                     break;

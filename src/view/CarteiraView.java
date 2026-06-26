@@ -1,4 +1,6 @@
 package src.view;
+
+import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -6,6 +8,7 @@ import src.controller.CarteiraController;
 import src.model.Carteira;
 
 public class CarteiraView {
+
     private final CarteiraController controller;
     private final Scanner scanner;
 
@@ -16,9 +19,10 @@ public class CarteiraView {
 
     public void exibirMenu() {
         int opcao = 0;
+
         do {
             System.out.println("\n=======================================");
-            System.out.println("          CARTEIRA       ");
+            System.out.println("             CARTEIRA");
             System.out.println("=======================================");
             System.out.println("1. Incluir carteira");
             System.out.println("2. Consultar carteira");
@@ -26,28 +30,30 @@ public class CarteiraView {
             System.out.println("4. Excluir carteira");
             System.out.println("5. Listar todas as carteiras");
             System.out.println("0. Voltar");
-            System.out.println("\n=======================================");
+            System.out.println("=======================================");
             System.out.print("Escolha uma opção: ");
 
             try {
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+                opcao = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (opcao) {
-                case 1 -> incluir();
-                case 2 -> consultar();
-                case 3 -> editar();
-                case 4 -> excluir();
-                case 5 -> listarTodas();
-                case 0 -> System.out.println("Saindo do menu de carteira...");
-                default -> System.out.println("Opção inválida! Tente novamente.");
+                switch (opcao) {
+                    case 1 -> incluir();
+                    case 2 -> consultar();
+                    case 3 -> editar();
+                    case 4 -> excluir();
+                    case 5 -> listarTodas();
+                    case 0 -> System.out.println("Saindo do menu de carteira...");
+                    default -> System.out.println("Opção inválida!");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Erro: digite apenas números.");
+                scanner.nextLine();
             }
 
-            }catch (InputMismatchException e) {
-                System.out.println("Erro: Por favor, digite apenas números.");
-                scanner.nextLine();}
-            } while (opcao != 0);
-            }
+        } while (opcao != 0);
+    }
 
     private void incluir() {
         try {
@@ -61,8 +67,14 @@ public class CarteiraView {
             System.out.print("Digite a corretora: ");
             String corretora = scanner.nextLine();
 
-            controller.incluirCarteira(id, nome, corretora);
+            System.out.print("Digite o saldo inicial (R$): ");
+            BigDecimal saldo = scanner.nextBigDecimal();
+            scanner.nextLine();
+
+            controller.incluirCarteira(id, nome, corretora, saldo);
+
             System.out.println("[SUCESSO] Carteira cadastrada!");
+
         } catch (IllegalArgumentException e) {
             System.out.println("[ERRO] " + e.getMessage());
         }
@@ -75,7 +87,13 @@ public class CarteiraView {
             scanner.nextLine();
 
             Carteira carteira = controller.consultarCarteira(id);
-            System.out.println("[RESULTADO] " + carteira.toString());
+
+            System.out.println("\n========== CARTEIRA ==========");
+            System.out.println("ID: " + carteira.getIdentificador());
+            System.out.println("Titular: " + carteira.getNomeTitular());
+            System.out.println("Corretora: " + carteira.getCorretora());
+            System.out.println("Saldo: R$ " + carteira.getSaldoFinanceiro());
+
         } catch (IllegalArgumentException e) {
             System.out.println("[ERRO] " + e.getMessage());
         }
@@ -94,7 +112,9 @@ public class CarteiraView {
             String novaCorretora = scanner.nextLine();
 
             controller.editarCarteira(id, novoNome, novaCorretora);
+
             System.out.println("[SUCESSO] Carteira atualizada!");
+
         } catch (IllegalArgumentException e) {
             System.out.println("[ERRO] " + e.getMessage());
         }
@@ -107,13 +127,15 @@ public class CarteiraView {
             scanner.nextLine();
 
             controller.excluirCarteira(id);
+
             System.out.println("[SUCESSO] Carteira excluída!");
+
         } catch (IllegalArgumentException e) {
             System.out.println("[ERRO] " + e.getMessage());
         }
     }
 
-        private void listarTodas() {
+    private void listarTodas() {
         var carteiras = controller.listarTodas();
 
         if (carteiras.isEmpty()) {
@@ -128,6 +150,7 @@ public class CarteiraView {
             System.out.println("ID: " + carteira.getIdentificador());
             System.out.println("Titular: " + carteira.getNomeTitular());
             System.out.println("Corretora: " + carteira.getCorretora());
+            System.out.println("Saldo: R$ " + carteira.getSaldoFinanceiro());
         }
 
         System.out.println("--------------------------------");

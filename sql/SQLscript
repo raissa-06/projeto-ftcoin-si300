@@ -6,23 +6,30 @@ USE ftcoin;
 --2 Criando a tabela Carteira
 CREATE TABLE IF NOT EXISTS Carteira (
     identificador INT PRIMARY KEY,
-    nomeTitular   VARCHAR(100) NOT NULL,
-    corretora     VARCHAR(100) NOT NULL
+    nomeTitular VARCHAR(100) NOT NULL,
+    corretora VARCHAR(100) NOT NULL,
+    saldoFinanceiro DECIMAL(18,2) NOT NULL
 );
 
 -- 3 Criando a tabela Movimentacao
 CREATE TABLE Movimentacao (
-    identificador INT PRIMARY KEY,
-    idCarteira    INT NOT NULL,
-    dataOperacao  DATE NOT NULL,
-    tipoOperacao  CHAR(1) NOT NULL,
-    quantidade    DECIMAL(18,8) NOT NULL CHECK (quantidade >= 0),
+    identificador INT PRIMARY KEY AUTO_INCREMENT,
+    idCarteira INT NOT NULL,
+    dataOperacao DATE NOT NULL,
+    tipoOperacao CHAR(1) NOT NULL,
+    quantidade DECIMAL(18,8) NOT NULL,
+    cotacaoNaData DECIMAL(18,8) NOT NULL,
+    valorFinanceiro DECIMAL(18,2) NOT NULL,
+
     CONSTRAINT fk_movimentacao_carteira
-        FOREIGN KEY (idCarteira) REFERENCES Carteira(identificador)
+        FOREIGN KEY (idCarteira)
+        REFERENCES Carteira(identificador)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    CONSTRAINT chk_tipo_operacao CHECK (tipoOperacao IN ('C','V'))
-) ENGINE=InnoDB;
+
+    CONSTRAINT chk_tipo_operacao
+        CHECK (tipoOperacao IN ('C','V'))
+);
 
 -- 4 Criando tabela Oraculo(COTAÇÂO)
 CREATE TABLE IF NOT EXISTS Oraculo (
